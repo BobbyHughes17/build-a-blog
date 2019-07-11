@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div>
+<a href="/logout">Logout</a>
+<a href="/"><h1>Bobby's Blogs</h1></a>
+</div>
+<hr>
+<ul>
+{% for blog in blogs %}
+    <a href="/{{blog.title}}"><p>{{blog.title}}</p></a>
+    <p>{{blog.body}}</p>
+{% endfor %}
+    <a href="/new-blog"><input type ="button" value='new blog'/></a>
+</ul>
+
+{% endblock %}

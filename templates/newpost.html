@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+<div>
+    <a href="/logout">Logout</a>
+    <a href="/"><h1>Bobby's Blogs</h1></a>
+    <hr>
+ </div>
+ <p class='error'>{{error}}</p>
+ <form action='/new-blog' method="post">
+    <table>
+        <tr>
+            <td><label for='title'>Blog TItle</label></td>
+            <td><input type ='text' name='title'/></td>
+        </tr>
+        <tr>
+            <td><label for='body'>Blog Body</label></td>
+            <td><textarea rows='5'name='body'></textarea></td>
+        </tr>
+        <tr>
+            <td><input type='submit' value='Post Blog'/></td>
+        </tr>
+    </table>
+</form>
+
+{% endblock %}
