@@ -1,25 +1,20 @@
 {% extends 'base.html' %}
+
 {% block content %}
-<div>
-    <a href="/logout">Logout</a>
-    <a href="/"><h1>Bobby's Blogs</h1></a>
-    <hr>
- </div>
+
  <p class='error'>{{error}}</p>
  <form action='/new-blog' method="post">
-    <table>
-        <tr>
-            <td><label for='title'>Blog TItle</label></td>
-            <td><input type ='text' name='title'/></td>
-        </tr>
-        <tr>
-            <td><label for='body'>Blog Body</label></td>
-            <td><textarea rows='5'name='body'></textarea></td>
-        </tr>
-        <tr>
-            <td><input type='submit' value='Post Blog'/></td>
-        </tr>
-    </table>
+     <div>
+        <label for='title'style='display:block;'>Blog TItle</label>
+        <input type ='text' style='margin-top:20px; margin-bottom: 20px;' name='title'/>
+    </div>
+    <div>
+        <label for='body' style="display:block;">Blog Body</label>
+        <textarea rows='5' style='margin-top:20px; margin-bottom: 20px;' name='body'></textarea>
+    </div>
+    <div>
+        <input type='submit' value='Post Blog'/>
+    </div> 
 </form>
 
 {% endblock %}

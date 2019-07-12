@@ -1,13 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>blog</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/style.css') }}">
+    <title>{{route}}</title>
+    <link rel="stylesheet" type='text/css' href="/static/styles/style.css">
 </head>
 <body>
+    <div>
+        <a href="/" style='text-align: center;'><h1>Build-a-Blog</h1></a>
+    </div>
+    <nav>
+        <a href='/'><span>Blog Home</span></a>
+        <a href="/logout" style='margin-left:90%;'><span>Logout</span></a>
+    </nav>
+    <hr>
+
     {% block content %}
     {% endblock %}
     

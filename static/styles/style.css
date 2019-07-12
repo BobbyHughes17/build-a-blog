@@ -1,3 +1,25 @@
-.error{
+body{
+    background-color: lightgoldenrodyellow;
+    color: blue;
+}
+body .error{
     color: red;
+}
+.no_link a{
+    color: blue;
+    text-decoration: none;
+}
+
+.no_link a hr{
+    color: purple;
+    margin-right: 50px;
+}
+#new_blog_button{
+    margin-top: 20px;
+}
+nav{
+    display:inline;
+}
+span{
+    padding-right:80px;
 }

@@ -14,7 +14,7 @@ db = SQLAlchemy(app)
 class Blog(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(120),nullable=False,unique=True)
+    title = db.Column(db.String(120),nullable=False)
     body = db.Column(db.Text)
     owner = db.Column(db.Integer,db.ForeignKey('user.id'),nullable=False)
 
@@ -22,6 +22,9 @@ class Blog(db.Model):
         self.title = title
         self.body = body
         self.owner = owner
+
+    def __repr__(self):
+        return '<Blog %r/>' % self.title
 
 class User(db.Model):
     id = db.Column(db.Integer,primary_key=True)
@@ -40,43 +43,51 @@ def required_login():
     
     allowed_routes = ['login_user', 'register_user']
     if request.endpoint not in allowed_routes and 'user' not in session:
-        print(request.endpoint)
         return redirect('/login ')
 
 @app.route('/',methods=['GET','POST'])
 def blog_page():
+    route = 'Blog'
     blogs = Blog.query.all()
-    return render_template('blog.html',blogs=blogs)
+    return render_template('blog.html',blogs=blogs,route=route)
     #TODO - get blogs render blog page
 
 @app.route('/new-blog',methods=['GET','POST'])
 def post_new_blog():
+    blogs = ''
     error = ''
-    if request.method =='post':
+    title = ''
+    body = ''
+    owner = ''
+    route = 'new-blog'
+    
+    if request.method =='POST':
         title = request.form['title']
         body = request.form['body']
-        owner = User.query.filter_by(user_name=session['user'])
-        if not title and not body and not owner:
-            return "<h1>Error</h1>"
-            error = 'Please make sure that you have a title, and there is contents in the body.'
+        owner = db.session.query(User.id).filter_by(user_name = session['user']).first()
+        new_blog = Blog(title,body,owner.id)
+        if Blog.query.filter_by(title=new_blog.title).first():
+            error = 'Blog title already exists'
+        elif  not title or not body or not owner:
+            error = 'Please make sure that you have a title, and there is content in the body.'
         else:
-            new_blog = Blog(title,body,owner)
             db.session.add(new_blog)
             db.session.commit()
             return redirect('/')
 
-    return render_template('newpost.html', error=error)
+    return render_template('newpost.html', error=error,route=route)
     #TODO - make blog post form, that submits then redirect to /blog
 
 @app.route('/<blog>')
 def selected_blog(blog):
-    print('this is the thin being printed please dont miss ####### ',blog)
+    route = blog
     blogs = Blog.query.filter_by(title=blog).all()
-    return render_template('blog.html',blogs=blogs)
+    return render_template('blog.html',blogs=blogs,route=route)
 
 @app.route('/register',methods=['GET','POST'])
 def register_user():
     # if request method = post then run
+    route = 'register'
     if request.method == 'POST':
 
         #set user info and verify_password
@@ -108,14 +119,16 @@ def register_user():
             db.session.commit()
             return redirect('/login')
         # else re-render site with errors
-        return render_template('register.html',user_name=user.user_name,email=user.email,user_err=user_err,email_err=email_err,password_err=password_err,verify_err=verify_err)
+        return render_template('register.html',user_name=user.user_name,email=user.email,
+        user_err=user_err,email_err=email_err,password_err=password_err,verify_err=verify_err,
+        route=route)
 
     return render_template('register.html')
 
 
 @app.route('/login',methods=['GET','POST'])
 def login_user():
-
+    route = 'login'
     error = ''
     if request.method == 'POST':
         user = User.query.filter_by(user_name=request.form['user_name']).first()
@@ -126,7 +139,7 @@ def login_user():
         else:
             error='User name and or password are incorrect'
         
-    return render_template('login.html', error=error)
+    return render_template('login.html', error=error,route=route)
 
 
 @app.route('/logout',methods=['GET'])
