@@ -1,10 +1,12 @@
 from flask import Flask,redirect,render_template,request,session
 from flask_sqlalchemy import SQLAlchemy
 
+
 app = Flask(__name__)
+
 app.config["DEBUG"] = True
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://build-a-blog:password@localhost:8889/build-a-blog'
-app.config['SQLALCHEMY_ECHO'] = True
+app.config['SQLALCHEMY_ECHO'] = False
 app.secret_key = "asdfgh"
 
 db = SQLAlchemy(app)
@@ -38,21 +40,45 @@ class User(db.Model):
         self.password = password
         self.email = email
 
+class Navbar():
+    
+    def __init__(self,link,text,active,class_name):
+        self.link = link
+        self.text = text
+        self.active = active
+        self.class_name = class_name
+
+def build_bar(active_link):
+
+    active_link = active_link
+    links = ['/blog','/new-blog','/logout']
+    text = ['Blogz','New Blog','Logout']
+    class_name = ['blog','new_blog','logout']
+
+    nav = []
+    for i, link in enumerate(links):
+        if link == active_link:
+            nav += [Navbar(link,text[i],True,class_name[i])]
+        else:
+            nav += [Navbar(link,text[i],False,class_name[i])]
+    return nav
+
 @app.before_request
 def required_login():
-    
     allowed_routes = ['login_user', 'register_user']
     if request.endpoint not in allowed_routes and 'user' not in session:
-        return redirect('/login ')
+        return render_template('login.html')
 
 @app.route('/', methods=["GET"])
-def redirect_to_blog():
+def index():
     return redirect('/blog')
+
 @app.route('/blog',methods=['GET','POST'])
 def blog_page():
     route = 'Blog'
     blogs = Blog.query.all()
-    return render_template('blog.html',blogs=blogs,route=route)
+    nav = build_bar('/blog')
+    return render_template('blog.html',blogs=blogs,route=route,nav=nav)
     #TODO - get blogs render blog page
 
 @app.route('/new-blog',methods=['GET','POST'])
@@ -77,15 +103,16 @@ def post_new_blog():
             db.session.add(new_blog)
             db.session.commit()
             return redirect('/blog')
-
-    return render_template('newpost.html', error=error,route=route)
+    nav = build_bar('/new-blog')
+    return render_template('newpost.html', error=error,route=route,nav=nav)
     #TODO - make blog post form, that submits then redirect to /blog
 
 @app.route('/<blog>')
 def selected_blog(blog):
     route = blog
     blogs = Blog.query.filter_by(title=blog).all()
-    return render_template('blog.html',blogs=blogs,route=route)
+    nav = build_bar('/blog')
+    return render_template('blog.html',blogs=blogs,route=route,nav=nav)
 
 @app.route('/register',methods=['GET','POST'])
 def register_user():
@@ -151,4 +178,4 @@ def logout_user():
     return redirect('/login')
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)

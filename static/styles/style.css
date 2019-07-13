@@ -1,5 +1,5 @@
 body{
-    background-color: mediumspringgreen;
+    background-color:lightgoldenrodyellow;
     color: blue;
 }
 body .error{
@@ -9,7 +9,6 @@ ul a{
     color: blue;
     text-decoration: none;
 }
-
 ul a div hr{    
     color: purple;
     margin-right: 50px;
@@ -17,14 +16,23 @@ ul a div hr{
 #new_blog_button{
     margin-top: 20px;
 }
-nav{
-    display:inline;
+.navbar{
+    display: inline;
+    text-decoration: none;
 }
-nav a:active{
-    background-color:purple;
+.navbar ul{
+    display:inline-block;
 }
-nav a.floatright{
+.navbar ul li{
+    display: inline;
+    list-style-type: none;
+}
+.navbar a.active{
+    background-color: lightblue;
+}
+.navbar a#Logout{
     float:right;
     margin-right: 20px;
-    margin-left:auto;
+    margin-left: auto;
 }
+
