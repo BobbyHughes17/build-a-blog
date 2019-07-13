@@ -1,0 +1,1 @@
+var links = document.querySelectorAll('a[href="'+document.URL+'"]');

@@ -45,7 +45,10 @@ def required_login():
     if request.endpoint not in allowed_routes and 'user' not in session:
         return redirect('/login ')
 
-@app.route('/',methods=['GET','POST'])
+@app.route('/', methods=["GET"])
+def redirect_to_blog():
+    return redirect('/blog')
+@app.route('/blog',methods=['GET','POST'])
 def blog_page():
     route = 'Blog'
     blogs = Blog.query.all()
@@ -73,7 +76,7 @@ def post_new_blog():
         else:
             db.session.add(new_blog)
             db.session.commit()
-            return redirect('/')
+            return redirect('/blog')
 
     return render_template('newpost.html', error=error,route=route)
     #TODO - make blog post form, that submits then redirect to /blog
@@ -135,7 +138,7 @@ def login_user():
         password = request.form['password']
         if user and user.password == password:
             session['user'] = user.user_name
-            return redirect('/')
+            return redirect('/blog')
         else:
             error='User name and or password are incorrect'
         

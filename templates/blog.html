@@ -4,11 +4,13 @@
 
 <ul>
 {% for blog in blogs %}
-<divf class='no_link'><a target="_parent"  href="{{blog.title}}">
+<a target="_parent"  href="{{blog.title}}">
+<div class='no_link'>
         <h1>{{blog.title}}</h1>
         <p>{{blog.body}}</p>
         <hr class='blog_line' bot line>
-    </a></divf> 
+</div>
+</a>
 {% endfor %} 
 {% if request.endpoint =='blog_page' %}
     <a href="/new-blog"><input id='new_blog_button' type ="button" value='new blog'/></a>

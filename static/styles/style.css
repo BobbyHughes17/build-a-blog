@@ -1,16 +1,16 @@
 body{
-    background-color: lightgoldenrodyellow;
+    background-color: mediumspringgreen;
     color: blue;
 }
 body .error{
     color: red;
 }
-.no_link a{
+ul a{
     color: blue;
     text-decoration: none;
 }
 
-.no_link a hr{
+ul a div hr{    
     color: purple;
     margin-right: 50px;
 }
@@ -20,6 +20,11 @@ body .error{
 nav{
     display:inline;
 }
-span{
-    padding-right:80px;
+nav a:active{
+    background-color:purple;
+}
+nav a.floatright{
+    float:right;
+    margin-right: 20px;
+    margin-left:auto;
 }
