@@ -10,14 +10,14 @@
         <h1 style='text-align: center;'>Build-a-Blog</h1> 
     </div>
     <nav class='navbar'>
-            {% for link in nav %}       
-            <a href="{{link.link}}" {% if link.active %} class='active'{% endif %} id='{{link.text}}' >{{link.text}}</a>
+            {% for link in nav %} 
+            <a href="{{link.link}}" {% if link.active %} class='active {{link.l_or_r}}' {% else %} class='{{link.l_or_r}}' {% endif %} id='{{link.text}}' >{{link.text}}</a>
             {% endfor %}
     </nav>
     <hr>
-
+    <div class='content'>
     {% block content %}
     {% endblock %}
-    
+    </div>
 </body>
 </html>

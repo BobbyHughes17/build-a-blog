@@ -3,17 +3,29 @@
 
 <ul>
 {% for blog in blogs %}
-<a target="_parent"  href="{{blog.title}}">
+<a target="_self"  href="{{blog.title}}">
 <div class='no_link'>
         <h1>{{blog.title}}</h1>
+        <hr class='title_hr'>
         <p>{{blog.body}}</p>
-        <hr class='blog_line' bot line>
+    
+    <div class='blog_info'>
+        <div class='date'>
+            <p><small><em>
+            Created on <strong>{{blog.date_created}}</strong>
+            </em></small></p>
+        </div>  
+        <div class='user'>
+            <p><em>written by</em> <a href='blog/{{blog.User.user_name}}'><strong>{{blog.User.user_name}}</strong></a></p>
+        </div>
+    </div>
+    <hr class='blog_line' bot line>
 </div>
+
 </a>
 {% endfor %} 
 {% if request.endpoint =='blog_page' %}
     <a href="/new-blog"><input id='new_blog_button' type ="button" value='new blog'/></a>
 {% endif %}
 </ul>
-
 {% endblock %}

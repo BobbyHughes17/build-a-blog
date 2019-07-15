@@ -1,5 +1,10 @@
-{% extends 'bootstrap/base.html'}
+{% extends 'base.html' %}
 
-{% block navbar %}
-{{ super() }}
+{% block content %}
+<ul class='index_users'>
+    {% for user in users %}
+    <li class='index_user'><a href='blog/{{user.user_name}}'>{{user.user_name}}</a></li>
+    {% endfor %}
+</ul>
+
 {% endblock %}

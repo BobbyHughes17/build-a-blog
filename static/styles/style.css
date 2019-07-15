@@ -1,38 +1,88 @@
 body{
-    background-color:lightgoldenrodyellow;
-    color: blue;
+    background-color:rgba(240,240,240,1);
+    color:black;
+    margin:0;
 }
 body .error{
     color: red;
 }
-ul a{
-    color: blue;
-    text-decoration: none;
-}
-ul a div hr{    
-    color: purple;
-    margin-right: 50px;
-}
-#new_blog_button{
-    margin-top: 20px;
+div{
+    margin:0;
 }
 .navbar{
-    display: inline;
+    margin:0 20px 0 20px;
+    background-color: rgba(150,150,150,1);
+    display:flexbox;
+    overflow:hidden;
+}
+.navbar a{
     text-decoration: none;
-}
-.navbar ul{
-    display:inline-block;
-}
-.navbar ul li{
-    display: inline;
-    list-style-type: none;
+    color:black;
+    padding:10px;
 }
 .navbar a.active{
-    background-color: lightblue;
+    background-color: rgba(120,120,120,1);
+    padding: 10px 10px 10px 10px;
 }
-.navbar a#Logout{
+.navbar .left{
+    float:left;
+}
+.navbar .right{
     float:right;
-    margin-right: 20px;
-    margin-left: auto;
+}
+.navbar a:hover{
+    background-color: rgba(130,130,130,8)
+}
+div.content{
+    margin:20px 60px 20px 60px;
+    padding: 10px;
+    background-color: rgba(180,180,180,1);
+    border-radius:20px;
+}
+.content ul{
+    padding:0;
+}
+.content a{
+    text-decoration: none;
+    color:black;
+}
+.content .no_link{
+    padding: 20px;
+    border-radius:20px;
+}
+.content .no_link:hover{
+    background-color: rgba(120,120,120,8)
+}
+.content a h1{
+    text-align:center;
+}
+.title_hr {
+    margin:0 25% 0 25%;
+}
+.content .blog_info{
+    display:flex;
+    justify-content:right;
+}
+.content .date{
+    width:100%;
+    padding-right:30px;
 }
 
+.content a hr .blog_line{
+    margin: -20px;
+}
+#new_blog_button{
+    margin-top:20px;
+}
+.index_users{
+    text-align:center;
+    list-style:none;
+}
+.index_user{
+    border:2px black solid;
+    margin:5px 0 5px 0;
+}
+.index_user:hover{
+    
+    background-color: rgba(120,120,120,1);
+}

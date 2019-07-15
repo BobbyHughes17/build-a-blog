@@ -5,16 +5,24 @@
  <p class='error'>{{error}}</p>
  <form action='/new-blog' method="post">
      <div>
+        <div id='new_labels'>
         <label for='title'style='display:block;'>Blog TItle</label>
+        </div>
+        <div id='new_inputs'>
         <input type ='text' style='margin-top:20px; margin-bottom: 20px;' name='title'/>
-    </div>
+        </div>
     <div>
         <label for='body' style="display:block;">Blog Body</label>
         <textarea rows='5' style='margin-top:20px; margin-bottom: 20px;' name='body'></textarea>
     </div>
     <div>
-        <input type='submit' value='Post Blog'/>
-    </div> 
+        <label for="private" style='margin-right: 20px;'>Check to make private</label>
+        <input type="checkbox" name='private'/>
+    </div>
+</div>
+<div>
+    <input style='margin-top:20px;' type='submit' value='Post Blog'/>
+</div> 
 </form>
 
 {% endblock %}
